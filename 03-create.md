@@ -30,15 +30,13 @@ using the `exercise-data/writing` directory as an example.
 
 ### Step one: see where we are and what we already have
 
-We should still be in the `shell-lesson-data` directory on the Desktop,
-which we can check using:
-
+Let's go back to our `shell-lesson-data` directory in the Home directory, which we can check using:
 ```bash
 $ pwd
 ```
 
 ```output
-/Users/nelle/Desktop/shell-lesson-data
+/Users/nelle/shell-lesson-data
 ```
 
 Next we'll move to the `exercise-data/writing` directory and see what it contains:
@@ -332,7 +330,7 @@ attempt to open the `whale.mp3` file.
 Returning to the `shell-lesson-data/exercise-data/writing` directory,
 
 ```bash
-$ cd ~/Desktop/shell-lesson-data/exercise-data/writing
+$ cd ~/shell-lesson-data/exercise-data/writing
 ```
 
 In our `thesis` directory we have a file `draft.txt`
@@ -360,11 +358,10 @@ $ ls thesis
 quotes.txt
 ```
 
-One must be careful when specifying the target file name, since `mv` will
+One has to be careful when specifying the target file name, since `mv` will
 silently overwrite any existing file with the same name, which could
-lead to data loss. By default, `mv` will not ask for confirmation before overwriting files.
-However, an additional option, `mv -i` (or `mv --interactive`), will cause `mv` to request
-such confirmation.
+lead to data loss. An additional option, `mv -i` (or `mv --interactive`),
+can be used to make `mv` ask you for confirmation before overwriting.
 
 Note that `mv` also works on directories.
 
