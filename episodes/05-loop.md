@@ -58,7 +58,8 @@ do
 done  
 ```
 
-and we can apply this to our example like this:
+and we can apply this to our example. We want to extract the each species
+classification, i.e. the second line of the each file.
 
 ```bash
 $ for filename in basilisk.dat minotaur.dat unicorn.dat
@@ -141,18 +142,53 @@ possible to put the names into curly braces to clearly delimit the variable
 name: `$filename` is equivalent to `${filename}`, but is different from
 `${file}name`. You may find this notation in other people's programs.
 
+We run loop in terminal, which is quite handy when the loop is small. As the
+task inside the loop grows, it becomes hard to write/edit loop in the terminal.
+For example, if you try to make change to the last loop, by pressing up arrow
+key, all the text of the loop arranges in single line, that make hard make
+changes and it is more prone to error. So it is always good to write a script
+file.
+
+Let's create a shell-script named `classification.sh`:
+
+```bash
+#!/bin/bash
+# filename: classification.sh
+
+for filename in basilisk.dat minotaur.dat unicorn.dat
+do
+   head -n 2 $filename | tail -n 1  # calling variable with $ symbol
+done
+```
+
+Here, filename is a variable, which keeps updating after each iteration.
+Let's run the:
+
+```bash
+$ chmod +x classification.sh
+$ ./classification.sh
+```
+
+```output
+CLASSIFICATION: basiliscus vulgaris
+CLASSIFICATION: bos hominus
+CLASSIFICATION: equus monoceros
+```
+
 We have called the variable in this loop `filename`
 in order to make its purpose clearer to human readers.
 The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
 ```bash
-$ for x in basilisk.dat minotaur.dat unicorn.dat
-> do
->     head -n 2 $x | tail -n 1
-> done
-```
+#!/bin/bash
+# filename: classification.sh
 
+for x in basilisk.dat minotaur.dat unicorn.dat
+do
+   head -n 2 $x | tail -n 1
+done
+```
 or:
 
 ```bash
@@ -591,16 +627,24 @@ protein sample file and takes two arguments:
 Since she's still learning how to use the shell,
 she decides to build up the required commands in stages.
 Her first step is to make sure that she can select the right input files --- remember,
-these are ones whose names end in 'A' or 'B', rather than 'Z'.
-Moving to the `north-pacific-gyre` directory, Nelle types:
+these are ones whose names end in 'A' or 'B', rather than 'Z'. Starting from her home directory, Nelle types:
 
 ```bash
 $ cd
-$ cd Desktop/shell-lesson-data/north-pacific-gyre
-$ for datafile in NENE*A.txt NENE*B.txt
-> do
->     echo $datafile
-> done
+$ cd shell-lesson-data/north-pacific-gyre
+```
+
+Let's create a new script file `do-stats.sh`:
+
+```bash
+#!/bin/bash
+# filename: do-stats.sh
+# Calculate stats for Site A and Site B data files.
+
+for for datafile in NENE*A.txt NENE*B.txt
+do
+     echo $datafile
+done
 ```
 
 ```output
@@ -618,10 +662,14 @@ Prefixing each input file's name with 'stats' seems simple,
 so she modifies her loop to do that:
 
 ```bash
-$ for datafile in NENE*A.txt NENE*B.txt
-> do
->     echo $datafile stats-$datafile
-> done
+#!/bin/bash
+# filename: do-stats.sh
+# Calculate stats for Site A and Site B data files.
+
+for datafile in NENE*A.txt NENE*B.txt
+do
+    echo $datafile stats-$datafile
+done
 ```
 
 ```output
@@ -679,6 +727,18 @@ and to the end using <kbd>Ctrl</kbd>\+<kbd>E</kbd>.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```bash
+#!/bin/bash
+# filename: do-stats.sh
+# Calculate stats for Site A and Site B data files.
+
+for datafile in NENE*[AB].txt
+do
+     echo "Processing $datafile..." # add a message for user
+     ./goostats.sh $datafile stats-$datafile
+done
+```
 
 When she runs her program now,
 it produces one line of output every five seconds or so:
@@ -751,6 +811,29 @@ There are a number of other shortcut commands for getting at the history.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+The above script can be easily modified to all the filles in a directory:
+
+```bash
+#!/bin/bash
+# filename: do-stats.sh
+# Calculate stats for data files.
+
+for datafile in "$@"
+do
+    echo $datafile
+    bash goostats.sh $datafile stats-$datafile
+done
+```
+
+The advantage is that this always selects the right files: she doesn't have to
+remember to exclude the ‘Z' files. The disadvantage is that it always selects
+just those files — she can't run it on all files (including the ‘Z' files),
+or on the ‘G' or ‘H' files her colleagues in Antarctica are producing, without
+editing the script. If she wanted to be more adventurous, she could modify her
+script to check for command-line arguments, and use NENE\*[AB].txt if none were
+provided. Of course, this introduces another tradeoff between flexibility
+and complexity.
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Doing a Dry Run
@@ -805,6 +888,107 @@ to the file, `all.pdb`. This file will just contain the list;
 
 Try both versions for yourself to see the output! Be sure to open the
 `all.pdb` file to view its contents.
+
+
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Script Reading Comprehension
+
+For this question, consider the `shell-lesson-data/exercise-data/alkanes` directory once again.
+This contains a number of `.pdb` files in addition to any other files you
+may have created.
+Explain what each of the following three scripts would do when run as
+`bash script1.sh *.pdb`, `bash script2.sh *.pdb`, and `bash script3.sh *.pdb` respectively.
+
+```bash
+# Script 1
+echo *.*
+```
+
+```bash
+# Script 2
+for filename in $1 $2 $3
+do
+    cat $filename
+done
+```
+
+```bash
+# Script 3
+echo $@.pdb
+```
+
+:::::::::::::::  solution
+
+## Solutions
+
+In each case, the shell expands the wildcard in `*.pdb` before passing the resulting
+list of file names as arguments to the script.
+
+Script 1 would print out a list of all files containing a dot in their name.
+The arguments passed to the script are not actually used anywhere in the script.
+
+Script 2 would print the contents of the first 3 files with a `.pdb` file extension.
+`$1`, `$2`, and `$3` refer to the first, second, and third argument respectively.
+
+Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
+followed by `.pdb`.
+`$@` refers to *all* the arguments given to a shell script.
+
+```output
+cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb.pdb
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Debugging Scripts
+
+Suppose you have saved the following script in a file called `do-errors.sh`
+in Nelle's `north-pacific-gyre/2012-07-03` directory:
+
+```bash
+# Calculate stats for data files.
+for datafile in "$@"
+do
+    echo $datfile
+    bash goostats $datafile stats-$datafile
+done
+```
+
+When you run it:
+
+```bash
+$ bash do-errors.sh NENE*[AB].txt
+```
+
+the output is blank.
+To figure out why, re-run the script using the `-x` option:
+
+```bash
+bash -x do-errors.sh NENE*[AB].txt
+```
+
+What is the output showing you?
+Which line is responsible for the error?
+
+:::::::::::::::  solution
+
+## Solution
+
+The `-x` option causes `bash` to run in debug mode.
+This prints out each command as it is run, which will help you to locate errors.
+In this example, we can see that `echo` isn't printing anything. We have made a typo
+in the loop variable name, and the variable `datfile` doesn't exist, hence returning
+an empty string.
 
 
 
