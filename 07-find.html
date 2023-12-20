@@ -1053,6 +1053,44 @@ the current directory</li>
 </div>
 </div>
 </div>
+<div id="finding-files-with-different-properties" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="finding-files-with-different-properties" class="callout-inner">
+<h3 class="callout-title">Finding Files With Different Properties<a class="anchor" aria-label="anchor" href="#finding-files-with-different-properties"></a>
+</h3>
+<div class="callout-content">
+<p>The <code>find</code> command can be given several other criteria
+known as “tests” to locate files with specific attributes, such as
+creation time, size, permissions, or ownership. Use
+<code>man find</code> to explore these, and then write a single command
+to find all files in or below the current directory that are owned by
+the user <code>ahmed</code> and were modified in the last 24 hours.</p>
+<p>Hint 1: you will need to use three tests: <code>-type</code>,
+<code>-mtime</code>, and <code>-user</code>.</p>
+<p>Hint 2: The value for <code>-mtime</code> will need to be
+negative—why?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6">Show me the solution</h4>
+</button>
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div class="accordion-body">
+<p>Assuming that Nelle’s home is our working directory we type:</p>
+<div class="codewrapper sourceCode" id="cb51">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> find ./ <span class="at">-type</span> f <span class="at">-mtime</span> <span class="at">-1</span> <span class="at">-user</span> ahmed</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>

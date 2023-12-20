@@ -306,6 +306,7 @@
 <li>Construct command pipelines with two or more stages.</li>
 <li>Explain what usually happens if a program or pipeline isn’t given
 any input to process.</li>
+<li>Explain Unix’s ‘small pieces, loosely joined’ philosophy.</li>
 <li>Explain the advantage of linking commands with pipes and
 filters.</li>
 </ul></div>
@@ -324,7 +325,8 @@ the molecule.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/shell-lesson-data/exercise-data/alkanes</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1071,7 +1073,57 @@ information any other way, she must exclude those two files from her
 analysis. She could delete them using <code>rm</code>, but there are
 actually some analyses she might do later where depth doesn’t matter, so
 instead, she’ll have to be careful later on to select files using the
-wildcard expressions <code>NENE*A.txt NENE*B.txt</code>.</p>
+wildcard expression <code>*[AB].txt</code>. As always, the
+<code>*</code> matches any number of characters; the expression
+<code>[AB]</code> matches either an ‘A’ or a ‘B’, so this matches all
+the valid data files she has.</p>
+<div id="wildcard-expressions" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="wildcard-expressions" class="callout-inner">
+<h3 class="callout-title">Wildcard Expressions<a class="anchor" aria-label="anchor" href="#wildcard-expressions"></a>
+</h3>
+<div class="callout-content">
+<p>Wildcard expressions can be very complex, but you can sometimes write
+them in ways that only use simple syntax, at the expense of being a bit
+more verbose. Consider the directory
+<code>shell-lesson-data/north-pacific-gyre</code> : the wildcard
+expression <code>*[AB].txt</code> matches all files ending in
+<code>A.txt</code> or <code>B.txt</code>.</p>
+<ol style="list-style-type: decimal"><li><p>Can you match the same set of files with basic wildcard
+expressions that do not use the <code>[]</code> syntax? <em>Hint</em>:
+You may need more than one expression.</p></li>
+<li><p>The expression that you found and the expression from the lesson
+match the same set of files in this example. What is the small
+difference between the outputs?</p></li>
+<li><p>Under what circumstances would your new expression produce an
+error message where the original one would not?</p></li>
+</ol></div>
+</div>
+</div>
+<div id="accordionSolution8" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
+  <h4 class="accordion-header" id="headingSolution8">Show me the solution</h4>
+</button>
+<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
+<div class="accordion-body">
+<ol style="list-style-type: decimal"><li>A solution using two wildcard expressions:</li>
+</ol><div class="codewrapper sourceCode" id="cb49">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="pp">*</span>A.txt</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="pp">*</span>B.txt</span></code></pre>
+</div>
+<ol start="2" style="list-style-type: decimal"><li>The output from the new commands is separated because there are two
+commands.</li>
+<li>When there are no files ending in <code>A.txt</code>, or there are
+no files ending in <code>B.txt</code>.</li>
+</ol></div>
+</div>
+</div>
+</div>
 <div id="removing-unneeded-files" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -1092,12 +1144,12 @@ Which of the following would remove all the processed data files, and
 </ol></div>
 </div>
 </div>
-<div id="accordionSolution8" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution9" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
-  <h4 class="accordion-header" id="headingSolution8">Show me the solution</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution9" aria-expanded="false" aria-controls="collapseSolution9">
+  <h4 class="accordion-header" id="headingSolution9">Show me the solution</h4>
 </button>
-<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
+<div id="collapseSolution9" class="accordion-collapse collapse" data-bs-parent="#accordionSolution9" aria-labelledby="headingSolution9">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>This would remove <code>.txt</code> files with one-character
 names</li>
