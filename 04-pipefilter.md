@@ -9,6 +9,7 @@ exercises: 10
 - Redirect a command's output to a file.
 - Construct command pipelines with two or more stages.
 - Explain what usually happens if a program or pipeline isn't given any input to process.
+- Explain Unix's 'small pieces, loosely joined' philosophy.
 - Explain the advantage of linking commands with pipes and filters.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -28,6 +29,7 @@ The `.pdb` extension indicates that these files are in Protein Data Bank format,
 a simple text format that specifies the type and position of each atom in the molecule.
 
 ```bash
+cd ~/shell-lesson-data/exercise-data/alkanes
 $ ls
 ```
 
@@ -702,8 +704,52 @@ Since it's too late to get the information any other way,
 she must exclude those two files from her analysis.
 She could delete them using `rm`,
 but there are actually some analyses she might do later where depth doesn't matter,
-so instead, she'll have to be careful later on to select files using the wildcard expressions
-`NENE*A.txt NENE*B.txt`.
+so instead, she'll have to be careful later on to select files using the wildcard expression `*[AB].txt`.
+As always,
+the `*` matches any number of characters;
+the expression `[AB]` matches either an 'A' or a 'B',
+so this matches all the valid data files she has.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Wildcard Expressions
+
+Wildcard expressions can be very complex, but you can sometimes write
+them in ways that only use simple syntax, at the expense of being a bit
+more verbose.
+Consider the directory `shell-lesson-data/north-pacific-gyre` :
+the wildcard expression `*[AB].txt`
+matches all files ending in `A.txt` or `B.txt`.
+
+1. Can you match the same set of files with basic wildcard expressions
+  that do not use the `[]` syntax? *Hint*: You may need more than one
+  expression.
+
+1. The expression that you found and the expression from the lesson match the
+  same set of files in this example. What is the small difference between the
+  outputs?
+
+1. Under what circumstances would your new expression produce an error message
+  where the original one would not?
+
+:::::::::::::::  solution
+
+## Solution
+
+1. A solution using two wildcard expressions:
+  ```bash
+  $ ls *A.txt
+  $ ls *B.txt
+  ```
+2. The output from the new commands is separated because there are two commands.
+3. When there are no files ending in `A.txt`, or there are no files ending in
+  `B.txt`.
+  
+  
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

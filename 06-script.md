@@ -32,6 +32,105 @@ typos) and more reproducible. If you come back to your work later (or if someone
 your work and wants to build on it), you will be able to reproduce the same results simply
 by running your script, rather than having to remember or retype a long list of commands.
 
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Script File Format
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```bash
+$ nano myscript.sh
+```
+
+```bash
+#!/bin/bash
+# filename: myscript.sh
+# This is our first script
+# This is a comment
+
+echo "Hello world!" # This is a comment too
+```
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Comments
+
+Comments start with the symbol #. Anything after the # is not get executed.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Then we save the file (`Ctrl-O` in nano), and exit the text editor (`Ctrl-X` in nano).
+
+Once we have saved the file,
+we need to change the file permission to execute. This
+is done using chmod as:
+
+```source
+$ chmod +x myscript.sh
+```
+
+Now, we run the following command:
+
+```source
+$ ./myscript.sh
+Hello world!
+```
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Variables
+
+A variable is a placeholder for the data. In shell script, variables are as
+
+- variableName=variable value (**Note: No spaces on either side of the = sign**).
+- While calling the varible, `$` sign must be called before the variable name.
+- Variable can be also called using curly braces,`${}`.
+  
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```bash
+#!/bin/bash
+# filename: myscript.sh
+# This is our first script
+# This is a comment
+
+echo "Hello world!" # This is a comment too
+
+# Varaibles
+
+name="John" # no spaces on either side of the = sign
+echo Hello $name 
+# OR
+echo Hello ${name} 
+```
+
+```bash
+$ ./myscript.sh
+Hello world!
+Hello John
+Hello John
+```
+
+<!---
+>## Command as Variable
+> It is also possible to save the output of a command to a variable and this is
+>done using the backtick(`).
+{: .callout}
+~~~
+#!/bin/bash
+# filename: myscript.sh
+
+name="John" # no spaces on either side of the = sign
+echo Hello $name 
+
+now=`date`
+echo now
+~~~
+{: .source}
+
+--->
+
 Let's start by going back to `alkanes/` and creating a new file, `middle.sh` which will
 become our shell script:
 
@@ -45,7 +144,10 @@ The command `nano middle.sh` opens the file `middle.sh` within the text editor '
 If the file does not exist, it will be created.
 We can use the text editor to directly edit the file by inserting the following line:
 
-```source
+```bash
+#!/bin/bash
+# filename: middle.sh
+
 head -n 15 octane.pdb | tail -n 5
 ```
 
@@ -57,7 +159,15 @@ Then we save the file (`Ctrl-O` in nano) and exit the text editor (`Ctrl-X` in n
 Check that the directory `alkanes` now contains a file called `middle.sh`.
 
 Once we have saved the file,
-we can ask the shell to execute the commands it contains.
+we need to change the file permission to execute. This
+is done using chmod as:
+
+```source
+chmod +x middle.sh
+```
+
+Now, we can ask the shell to execute the commands it contains.
+
 Our shell is called `bash`, so we run the following command:
 
 ```bash
@@ -92,6 +202,7 @@ text editor or be careful to save files as plain text.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+In the above script, we have selected 11-15 line from the octane.pdb.
 What if we want to select lines from an arbitrary file?
 We could edit `middle.sh` each time to change the filename,
 but that would probably take longer than typing the command out again
@@ -105,11 +216,27 @@ $ nano middle.sh
 Now, within "nano", replace the text `octane.pdb` with the special variable called `$1`:
 
 ```source
-head -n 15 "$1" | tail -n 5
+#!/bin/bash
+# filename: middle.sh
+
+head -n 15 "$1" | tail -n 5  # octane.pdb -> $1
 ```
 
 Inside a shell script,
 `$1` means 'the first filename (or other argument) on the command line'.
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Command line arguments
+
+- `$0`: The name of the script.
+- `$1`\-`$9`:`$1` is the first argument, `$2` is the second and so on.
+- `$#`: How many command line arguments were given to the script.
+- `$*`:  All of the command line arguments.
+  
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 We can now run our script like this:
 
 ```bash
@@ -164,7 +291,12 @@ $ nano middle.sh
 ```
 
 ```source
-head -n "$2" "$1" | tail -n "$3"
+#!/bin/bash
+# filename: middle.sh
+
+# head -n 15 octane.pdb | tail -n 5
+
+head -n "$2" "$1" | tail -n "$3"  # $1 = filename,   line-range=($2-$3) to $2
 ```
 
 We can now run:
@@ -205,8 +337,12 @@ $ nano middle.sh
 ```
 
 ```source
+#!/bin/bash
+# filename: middle.sh
+
 # Select lines from the middle of a file.
 # Usage: bash middle.sh filename end_line num_lines
+
 head -n "$2" "$1" | tail -n "$3"
 ```
 
@@ -247,6 +383,8 @@ $ nano sorted.sh
 ```
 
 ```source
+#!/bin/bash
+#filename: sorted.sh
 # Sort files by their length.
 # Usage: bash sorted.sh one_or_more_filenames
 wc -l "$@" | sort -n
@@ -319,6 +457,7 @@ done
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+<!---
 Suppose we have just run a series of commands that did something useful --- for example,
 creating a graph we'd like to use in a paper.
 We'd like to be able to re-create the graph later if we need to,
@@ -418,6 +557,7 @@ so that she can now re-do the first stage of her analysis by typing:
 ```bash
 $ bash do-stats.sh NENE*A.txt NENE*B.txt
 ```
+This script will echo the name of each file that is processed.
 
 She can also do this:
 
@@ -433,6 +573,8 @@ it lets the person running it decide what files to process.
 She could have written it as:
 
 ```bash
+#!/bin/bash
+# filename: do-stats.sh
 # Calculate stats for Site A and Site B data files.
 for datafile in NENE*A.txt NENE*B.txt
 do
