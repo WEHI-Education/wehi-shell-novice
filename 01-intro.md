@@ -19,6 +19,13 @@ exercises: 0
 
 ### Background
 
+At a high level, computers do four things:
+
+- run programs
+- store data
+- communicate with each other, and
+- interact with us
+
 Humans and computers commonly interact in many different ways, such as through a keyboard and mouse,
 touch screen interfaces, or using speech recognition systems.
 The most widely used way to interact with personal computers is called a
@@ -137,6 +144,31 @@ is not installed.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Is it difficult?
+
+It is a different model of interacting than a GUI, and that
+will take some effort - and some time - to learn. A GUI
+presents you with choices and you select one. With a **command line interface** (CLI) the choices are combinations
+of commands and parameters, more like words in a language than buttons on a screen. They
+are not presented to you so
+you must learn a few, like learning some vocabulary in a new language. But a small
+number of commands gets you a long way, and we'll cover those essential few today.
+
+### Flexibility and automation
+
+The grammar of a shell allows you to combine existing tools into powerful
+pipelines and handle large volumes of data automatically. Sequences of
+commands can be written into a *script*, improving the reproducibility of
+workflows and allowing you to repeat them easily.
+
+In addition, the command line is often the easiest way to interact with remote machines and supercomputers.
+Familiarity with the shell is near essential to run a variety of specialized tools and resources
+including high-performance computing systems.
+As clusters and cloud computing systems become more popular for scientific data crunching,
+being able to interact with the shell is becoming a necessary skill.
+We can build on the command-line skills covered here
+to tackle a wide range of scientific questions and computational challenges.
 
 ## Nelle's Pipeline: A Typical Problem
 

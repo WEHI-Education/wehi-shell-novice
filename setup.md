@@ -6,10 +6,31 @@ title: Setup
 
 You need to download some files to follow this lesson.
 
-1. Download [shell-lesson-data.zip][zip-file] and move the file to your Desktop.
+### Using a Terminal
+Open a terminal and type `cd` to ensure you are in your HOME directory.
+
+```bash
+$ cd
+```
+
+Now enter the following command to download the file:
+
+```bash
+$ curl https://wehi-researchcomputing.github.io/wehi-shell-novice/data/shell-lesson-data.zip --output shell-lesson-data.zip
+```
+
+Extract the contents of the zip file using command:
+
+```bash
+$ unzip shell-lesson-data.zip
+```
+
+### Using a Graphical interface
+
+1. Download [shell-lesson-data.zip][zip-file] and move the file to your home directory.
 2. Unzip/extract the file.
   **Let your instructor know if you need help with this step**.
-  You should end up with a new folder called **`shell-lesson-data`** on your Desktop.
+  You should end up with a new folder called **`shell-lesson-data`** in your HOME directory.
 
 ## Install software
 

@@ -9,8 +9,7 @@ exercises: 10
 - Explain the similarities and differences between a file and a directory.
 - Translate an absolute path into a relative path and vice versa.
 - Construct absolute and relative paths that identify specific files and directories.
-- Use options and arguments to change the behaviour of a shell command.
-- Demonstrate the use of tab completion and explain its advantages.
+- Demonstrate the use of tab completion, and explain its advantages.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -138,7 +137,8 @@ Typically, when you open a new command prompt, you will be in
 your home directory to start.
 
 Now let's learn the command that will let us see the contents of our
-own filesystem.  We can see what's in our home directory by running `ls`:
+own filesystem.  We can see what's in our home directory by running `ls`,
+which stands for 'listing':
 
 ```bash
 $ ls
@@ -170,14 +170,14 @@ $ ls -F
 ```
 
 ```output
-Applications/ Documents/    Library/      Music/        Public/
-Desktop/      Downloads/    Movies/       Pictures/
+Applications/ Documents/    Library/
+Desktop/      Downloads/    shell-lesson-data/
 ```
 
 Here,
-we can see that the home directory contains only **sub-directories**.
-Any names in the output that don't have a classification symbol
-are **files** in the current working directory.
+we can see that our home directory contains mostly **sub-directories**.
+Any names in your output that don't have a classification symbol,
+are plain old **files** or **executables**.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -193,22 +193,23 @@ and <kbd>↓</kbd> to move line-by-line, or by scrolling in your terminal.
 ### Getting help
 
 `ls` has lots of other **options**. There are two common ways to find out how
-to use a command and what options it accepts ---
-**depending on your environment, you might find that only one of these ways works:**
+to use a command and what options it accepts:
 
-1. We can pass a `--help` option to any command (available on Linux and Git Bash), for example:
+1. We can pass a `--help` option to the command, such as:
   
   ```bash
   $ ls --help
   ```
 
-2. We can read its manual with `man` (available on Linux and macOS):
+2. We can read its manual with `man`, such as:
   
   ```bash
   $ man ls
   ```
 
-We'll describe both ways next.
+**Depending on your environment you might find that only one of these works
+(either `man` or `--help`).**
+We'll describe both ways below.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -225,8 +226,8 @@ If you get a message like `No manual entry for cd`, try `help cd` instead. The
 
 #### The `--help` option
 
-Most bash commands and programs that people have written to be
-run from within bash, support a `--help` option that displays more
+Many bash commands and programs that people have written that can be
+run from within bash, support a `--help` option to display more
 information on how to use the command or program.
 
 ```bash
@@ -265,7 +266,7 @@ Mandatory arguments to long options are mandatory for short options, too.
 
 ## Unsupported command-line options
 
-If you try to use an option that is not supported, `ls` and other commands
+If you try to use an option (flag) that is not supported, `ls` and other commands
 will usually print an error message similar to:
 
 ```bash
@@ -287,8 +288,9 @@ The other way to learn about `ls` is to type
 $ man ls
 ```
 
-This command will turn your terminal into a page with a description
-of the `ls` command and its options.
+This will turn your terminal into a page with a description
+of the `ls` command and its options and, if you're lucky, some examples
+of how to use it.
 
 To navigate through the `man` pages,
 you may use <kbd>↑</kbd> and <kbd>↓</kbd> to move line-by-line,
@@ -353,8 +355,8 @@ By default, `ls` lists the contents of a directory in alphabetical
 order by name. The command `ls -t` lists items by time of last
 change instead of alphabetically. The command `ls -r` lists the
 contents of a directory in reverse order.
-Which file is displayed last when you combine the `-t` and `-r` options?
-Hint: You may need to use the `-l` option to see the
+Which file is displayed last when you combine the `-t` and `-r` flags?
+Hint: You may need to use the `-l` flag to see the
 last changed dates.
 
 :::::::::::::::  solution
@@ -370,57 +372,53 @@ see if a new output file was written.
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 ### Exploring Other Directories
 
-Not only can we use `ls` on the current working directory,
-but we can use it to list the contents of a different directory.
-Let's take a look at our `Desktop` directory by running `ls -F Desktop`,
+We can also use `ls` to see the contents of a different directory.  Let's take a
+look at our `shell-lesson-data` directory by typing `ls -F shell-lesson-data`,
 i.e.,
-the command `ls` with the `-F` **option** and the [**argument**][Arguments]  `Desktop`.
-The argument `Desktop` tells `ls` that
+the command `ls` with the `-F` **option** and the [**argument**][Arguments]  `shell-lesson-data`.
+The argument `shell-lesson-data` tells `ls` that
 we want a listing of something other than our current working directory:
 
 ```bash
-$ ls -F Desktop
+$ ls -F shell-lesson-data
 ```
 
 ```output
-shell-lesson-data/
+exercise-data           north-pacific-gyre
 ```
 
-Note that if a directory named `Desktop` does not exist in your current working directory,
-this command will return an error. Typically, a `Desktop` directory exists in your
-home directory, which we assume is the current working directory of your bash shell.
+Your output should be a list of all the files in the `shell-lesson-data` directory you downloaded at
+the [setup for this lesson](../learners/setup.md).  Take a look at your Home to confirm that
+your output is accurate.
 
-Your output should be a list of all the files and sub-directories in your
-Desktop directory, including the `shell-lesson-data` directory you downloaded at
-the [setup for this lesson](../learners/setup.md). (On most systems, the
-contents of the `Desktop` directory in the shell will show up as icons in a graphical
-user interface behind all the open windows. See if this is the case for you.)
+As you may now see, using a bash shell is strongly dependent on the idea that
+your files are organized in a hierarchical file system.
+Organizing things hierarchically in this way helps us keep track of our work:
+it's possible to put hundreds of files in our home directory,
+just as it's possible to pile hundreds of printed papers on our desk,
+but it's a self-defeating strategy.
 
-Organizing things hierarchically helps us keep track of our work. While it's
-possible to put hundreds of files in our home directory just as it's possible to
-pile hundreds of printed papers on our desk, it's much easier to find things when
-they've been organized into sensibly-named subdirectories.
-
-Now that we know the `shell-lesson-data` directory is located in our Desktop directory, we
+Now that we know the `shell-lesson-data` directory is located in our home directory, we
 can do two things.
 
-First, using the same strategy as before, we can look at its contents by passing
+First, we can look at its contents, using the same strategy as before, passing
 a directory name to `ls`:
 
 ```bash
-$ ls -F Desktop/shell-lesson-data
+$ ls -F shell-lesson-data/exercise-data
 ```
 
 ```output
-exercise-data/  north-pacific-gyre/
+alkanes         animal-counts   creatures       numbers.txt     writing
 ```
 
 Second, we can actually change our location to a different directory, so
 we are no longer located in
 our home directory.
+
+### Changing Directory: cd
 
 The command to change locations is `cd` followed by a
 directory name to change our working directory.
@@ -436,20 +434,18 @@ Let's say we want to move into the `exercise-data` directory we saw above. We ca
 use the following series of commands to get there:
 
 ```bash
-$ cd Desktop
 $ cd shell-lesson-data
 $ cd exercise-data
 ```
 
-These commands will move us from our home directory into our Desktop directory, then into
-the `shell-lesson-data` directory, then into the `exercise-data` directory.
-You will notice that `cd` doesn't print anything. This is normal.
-Many shell commands will not output anything to the screen when successfully executed.
+These commands will move us from our home directory into
+the `shell-lesson-data` directory, then into the `exercise-data` directory.  
+You will notice that `cd` doesn't print anything.  This is normal.  
+Many shell commands will not output anything to the screen when successfully executed.  
 But if we run `pwd` after it, we can see that we are now
-in `/Users/nelle/Desktop/shell-lesson-data/exercise-data`.
-
+in `/Users/nelle/shell-lesson-data/exercise-data`.
 If we run `ls -F` without arguments now,
-it lists the contents of `/Users/nelle/Desktop/shell-lesson-data/exercise-data`,
+it lists the contents of `/Users/nelle/shell-lesson-data/exercise-data`,
 because that's where we now are:
 
 ```bash
@@ -457,7 +453,7 @@ $ pwd
 ```
 
 ```output
-/Users/nelle/Desktop/shell-lesson-data/exercise-data
+/Users/nelle/shell-lesson-data/exercise-data
 ```
 
 ```bash
@@ -498,14 +494,14 @@ $ cd ..
 or more succinctly,
 the **parent** of the current directory.
 Sure enough,
-if we run `pwd` after running `cd ..`, we're back in `/Users/nelle/Desktop/shell-lesson-data`:
+if we run `pwd` after running `cd ..`, we're back in `/Users/nelle/shell-lesson-data`:
 
 ```bash
 $ pwd
 ```
 
 ```output
-/Users/nelle/Desktop/shell-lesson-data
+/Users/nelle/shell-lesson-data
 ```
 
 The special directory `..` doesn't usually show up when we run `ls`. If we want
@@ -547,6 +543,23 @@ is used.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Orthogonality
+
+The special names `.` and `..` don't belong to `cd`;
+they are interpreted the same way by every program.
+For example,
+if we are in `/Users/nelle/data`,
+the command `ls ..` will give us a listing of `/Users/nelle`.
+When the meanings of the parts are the same no matter how they're combined,
+programmers say they are **orthogonal**:
+Orthogonal systems tend to be easier for people to learn
+because there are fewer special cases and exceptions to keep track of.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 These three commands are the basic commands for navigating the filesystem on your computer:
 `pwd`, `ls`, and `cd`. Let's explore some variations on those commands. What happens
 if you type `cd` on its own, without giving
@@ -567,14 +580,14 @@ $ pwd
 ```
 
 It turns out that `cd` without an argument will return you to your home directory,
-which is great if you've got lost in your own filesystem.
+which is great if you've gotten lost in your own filesystem.
 
 Let's try returning to the `exercise-data` directory from before. Last time, we used
 three commands, but we can actually string together the list of directories
 to move to `exercise-data` in one step:
 
 ```bash
-$ cd Desktop/shell-lesson-data/exercise-data
+$ cd shell-lesson-data/exercise-data
 ```
 
 Check that we've moved to the right place by running `pwd` and `ls -F`.
@@ -604,11 +617,11 @@ $ pwd
 ```
 
 ```output
-/Users/nelle/Desktop/shell-lesson-data/exercise-data
+/Users/nelle/shell-lesson-data/exercise-data
 ```
 
 ```bash
-$ cd /Users/nelle/Desktop/shell-lesson-data
+$ cd /Users/nelle/shell-lesson-data
 ```
 
 Run `pwd` and `ls -F` to ensure that we're in the directory we expect.
@@ -635,10 +648,10 @@ that the former brings you *up*, while the latter brings you *back*.
 ***
 
 Try it!
-First navigate to `~/Desktop/shell-lesson-data` (you should already be there).
+First navigate to `~/shell-lesson-data` (you should already be there).
 
 ```bash
-$ cd ~/Desktop/shell-lesson-data
+$ cd ~/shell-lesson-data
 ```
 
 Then `cd` into the `exercise-data/creatures` directory
