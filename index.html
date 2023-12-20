@@ -296,12 +296,38 @@ lesson: <a href="https://carpentries-incubator.github.io/shell-extras/" class="e
       <section id="setup"><section id="download-files"><h2 class="section-heading">Download files<a class="anchor" aria-label="anchor" href="#download-files"></a>
 </h2>
 <hr class="half-width"><p>You need to download some files to follow this lesson.</p>
+<div class="section level3">
+<h3 id="using-a-terminal">Using a Terminal<a class="anchor" aria-label="anchor" href="#using-a-terminal"></a></h3>
+<p>Open a terminal and type <code>cd</code> to ensure you are in your
+HOME directory.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd</span></code></pre>
+</div>
+<p>Now enter the following command to download the file:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> curl https://wehi-researchcomputing.github.io/wehi-shell-novice/data/shell-lesson-data.zip <span class="at">--output</span> shell-lesson-data.zip</span></code></pre>
+</div>
+<p>Extract the contents of the zip file using command:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> unzip shell-lesson-data.zip</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="using-a-graphical-interface">Using a Graphical interface<a class="anchor" aria-label="anchor" href="#using-a-graphical-interface"></a></h3>
 <ol style="list-style-type: decimal"><li>Download <a href="data/shell-lesson-data.zip">shell-lesson-data.zip</a> and move the
-file to your Desktop.</li>
+file to your home directory.</li>
 <li>Unzip/extract the file. <strong>Let your instructor know if you need
 help with this step</strong>. You should end up with a new folder called
-<strong><code>shell-lesson-data</code></strong> on your Desktop.</li>
-</ol></section><section id="install-software"><h2 class="section-heading">Install software<a class="anchor" aria-label="anchor" href="#install-software"></a>
+<strong><code>shell-lesson-data</code></strong> in your HOME
+directory.</li>
+</ol></div>
+</section><section id="install-software"><h2 class="section-heading">Install software<a class="anchor" aria-label="anchor" href="#install-software"></a>
 </h2>
 <hr class="half-width"><p>If you do not already have the shell software installed, you will
 need to <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell" class="external-link">download
