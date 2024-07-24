@@ -16,7 +16,7 @@ $ cd
 Now enter the following command to download the file:
 
 ```bash
-$ curl https://wehi-researchcomputing.github.io/wehi-shell-novice/data/shell-lesson-data.zip --output shell-lesson-data.zip
+$ curl https://WEHI-Education.github.io/wehi-shell-novice/data/shell-lesson-data.zip --output shell-lesson-data.zip
 ```
 
 Extract the contents of the zip file using command:
